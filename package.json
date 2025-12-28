@@ -2,6 +2,6 @@
   "name": "beeson-trees",
   "version": "1.0.0",
   "scripts": {
-    "start": "npx serve . -l 8080"
+    "start": "npx http-server . -p 8080"
   }
 }
