@@ -327,7 +327,7 @@ h1, h2, h3, h4, h5, h6 {
     align-items: center;
     justify-content: center;
     background: linear-gradient(135deg, #1a2f0a 0%, #2d4a12 50%, #1E3A0F 100%);
-    background-image: url('https://beesontrees.co.uk/images/upTree.jpeg');
+    background-image: url('images/upTree.jpeg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -574,6 +574,74 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ============================================
+   VIDEO SECTION
+   ============================================ */
+.video-section {
+    padding: 0;
+    background-color: var(--color-black);
+}
+
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    height: 60vh;
+    min-height: 400px;
+    overflow: hidden;
+}
+
+.hero-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+}
+
+.video-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        135deg,
+        rgba(30, 58, 15, 0.7) 0%,
+        rgba(45, 80, 22, 0.5) 100%
+    );
+}
+
+.video-content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--color-white);
+    padding: var(--space-lg);
+}
+
+.video-content h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--color-white);
+    margin-bottom: var(--space-sm);
+}
+
+.video-content p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+    .video-wrapper {
+        height: 50vh;
+        min-height: 300px;
+    }
+}
+
+/* ============================================
    SERVICES SECTION
    ============================================ */
 .services {
@@ -801,7 +869,7 @@ h1, h2, h3, h4, h5, h6 {
 .cta-section {
     position: relative;
     padding: var(--space-3xl) 0;
-    background-image: url('https://beesontrees.co.uk/images/434092135_434018935802663_1744976733562488958_n.jpg');
+    background-image: url('images/cta-background.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
