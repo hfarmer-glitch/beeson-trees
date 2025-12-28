@@ -1,0 +1,10 @@
+version: 1.0
+runtime: nodejs18
+build:
+  commands:
+    build:
+      - npm install http-server
+run:
+  command: npx http-server . -p 8080 -c-1
+  network:
+    port: 8080
