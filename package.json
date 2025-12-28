@@ -1,0 +1,7 @@
+{
+  "name": "beeson-trees",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "npx serve -s . -l 8080"
+  }
+}
