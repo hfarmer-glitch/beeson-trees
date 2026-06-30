@@ -12,21 +12,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Install sshpass
+        run: sudo apt-get install -y sshpass rsync
+
       - name: Deploy via SFTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-        with:
-          server: ${{ secrets.SFTP_SERVER }}
-          username: ${{ secrets.SFTP_USERNAME }}
-          password: ${{ secrets.SFTP_PASSWORD }}
-          protocol: ftps
-          port: 21
-          server-dir: ./
-          exclude: |
-            **/.git*
-            **/.git*/**
-            **/node_modules/**
-            apprunner.yaml
-            server.py
-            serve.json
-            package.json
-            package-lock.json
+        run: |
+          sshpass -p "${{ secrets.SFTP_PASSWORD }}" rsync -avz \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='node_modules' \
+            --exclude='apprunner.yaml' \
+            --exclude='server.py' \
+            --exclude='serve.json' \
+            --exclude='package.json' \
+            --exclude='package-lock.json' \
+            -e "ssh -o StrictHostKeyChecking=no -p 22" \
+            ./ ${{ secrets.SFTP_USERNAME }}@${{ secrets.SFTP_SERVER }}:/
