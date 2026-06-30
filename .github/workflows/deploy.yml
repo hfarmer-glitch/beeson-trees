@@ -12,19 +12,22 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install sshpass
-        run: sudo apt-get install -y sshpass rsync
+      - name: Install lftp
+        run: sudo apt-get install -y lftp
 
       - name: Deploy via SFTP
         run: |
-          sshpass -p "${{ secrets.SFTP_PASSWORD }}" rsync -avz \
-            --exclude='.git' \
-            --exclude='.github' \
-            --exclude='node_modules' \
-            --exclude='apprunner.yaml' \
-            --exclude='server.py' \
-            --exclude='serve.json' \
-            --exclude='package.json' \
-            --exclude='package-lock.json' \
-            -e "ssh -o StrictHostKeyChecking=no -p 22" \
-            ./ ${{ secrets.SFTP_USERNAME }}@${{ secrets.SFTP_SERVER }}:/
+          lftp -u "${{ secrets.SFTP_USERNAME }}","${{ secrets.SFTP_PASSWORD }}" \
+            -e "set sftp:auto-confirm yes; \
+                set net:max-retries 3; \
+                mirror -R \
+                  --exclude=^\.git/ \
+                  --exclude=^\.github/ \
+                  --exclude=apprunner\.yaml \
+                  --exclude=server\.py \
+                  --exclude=serve\.json \
+                  --exclude=package\.json \
+                  --exclude=package-lock\.json \
+                  . /; \
+                quit" \
+            sftp://${{ secrets.SFTP_SERVER }}
